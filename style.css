@@ -1,0 +1,507 @@
+/* 全局样式 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 头部样式 */
+header {
+    background:linear-gradient(135deg, #ffccff, #ff99cc, #ff6699);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin-bottom: 15px;
+}
+
+.month-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.month-selector button {
+    background-color:rgba(255, 102, 153, 0.8);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.month-selector button:hover {
+    background-color: #1d4ed8;
+}
+
+#current-month {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 日历样式 */
+.calendar {
+    flex: 1;
+    min-width: 700px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background:linear-gradient(135deg, #ffccff, #ff99cc, #ff6699);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.calendar-header div {
+    padding: 12px;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 120px; /* 强制行高一致 */
+    grid-gap: 1px;
+    background-color: #e5e7eb;
+}
+
+.day {
+    min-height: 120px;
+    height: 120px; /* 添加固定高度 */
+    background-color: white;
+    padding: 8px;
+    position: relative;
+    overflow: hidden; /* 防止内容溢出 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 日期数字位置 */
+.day-number {
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background-color: rgba(255, 255, 255, 0.7); /* 添加半透明背景 */
+    padding: 2px 5px;
+    z-index: 1; /* 确保在发射项之上 */
+}
+
+.day.empty {
+    background-color: #f9fafb;
+}
+
+.day.today {
+    background-color: #f0f9ff;
+}
+
+.day.today .day-number {
+    color: #2563eb;
+}
+
+.has-launches {
+    background-color: #f0f7ff;
+}
+
+/* 发射列表的滚动条 */
+.launches-container {
+    margin-top: 25px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+/* 视图切换按钮样式 */
+.launches-container {
+    margin-top: 25px;
+    max-height: 80px; /* 减小最大高度 */
+    overflow-y: auto;
+    width: 100%; /* 确保宽度充满父容器 */
+    flex-grow: 1;
+}
+
+.view-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0 2px;
+}
+
+.view-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.view-btn.active {
+    background-color: #1e3a8a;
+}
+
+/* 列表视图样式 */
+.list-view-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+
+.list-day {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 15px;
+}
+
+.list-day:last-child {
+    border-bottom: none;
+}
+
+.list-date {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-date-weekday {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.list-launches {
+    margin-left: 15px;
+}
+
+.list-launch-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-left: 3px solid #3b82f6;
+    background-color: #f0f7ff;
+}
+
+.list-launch-time {
+    min-width: 50px;
+    color: #1e40af;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.list-launch-info {
+    flex-grow: 1;
+}
+
+.list-launch-name {
+    font-weight: bold;
+}
+
+.list-launch-provider {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+/*发射项内容*/
+.launch-item {
+    margin-bottom: 5px;
+    padding: 4px 6px;
+    border-left: 3px solid #3b82f6;
+    border-radius: 3px;
+    font-size: 0.8rem; /* 减小字体大小 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #e0f2fe;
+}
+
+.launch-item:hover {
+    background-color: #bfdbfe;
+}
+
+.launch-time {
+    color: #1e40af;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* 即将发射列表样式 */
+.upcoming-launches {
+    width: 300px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+}
+
+.upcoming-launches h2 {
+    margin-bottom: 15px;
+    color: #1e3a8a;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 8px;
+}
+
+.upcoming-item {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upcoming-item:hover {
+    background-color: #f0f7ff;
+}
+
+.upcoming-item:last-child {
+    border-bottom: none;
+}
+
+.upcoming-item .launch-name {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.upcoming-item .launch-provider {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #1e3a8a;
+}
+
+#launch-details-content {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+#launch-details-content h2 {
+    margin-bottom: 15px;
+    color: #1e3a8a;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 8px;
+}
+
+#launch-details-content h3 {
+    margin: 20px 0 10px;
+    color: #1e3a8a;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    margin-bottom: 10px;
+}
+
+.detail-item .label {
+    font-weight: bold;
+    color: #475569;
+}
+
+.mission-description {
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.launch-image {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.launch-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 加载和错误状态 */
+.loading {
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+}
+
+.error {
+    padding: 20px;
+    text-align: center;
+    color: #dc2626;
+}
+
+.no-data {
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* 页脚样式 */
+footer {
+    background-color: #1e293b;
+    color: #f1f5f9;
+    padding: 20px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1100px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .calendar {
+        min-width: auto;
+    }
+    
+    .upcoming-launches {
+        width: 100%;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .month-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .view-toggle {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .view-btn {
+        flex: 1;
+    }
+    
+    .list-date {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* 二维码按钮样式 */
+.qrcode-btn {
+    background: rgba(255, 102, 153, 0.8);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.qrcode-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* 二维码模态框内容 */
+.qrcode-modal-content {
+    max-width: 400px;
+}
+
+.qrcode-container {
+    text-align: center;
+    padding: 10px;
+}
+
+.qrcode-container h3 {
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.qrcode-container p {
+    color: #64748b;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+.qrcode-image {
+    max-width: 260px;
+    display: block;
+    margin: 15px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
